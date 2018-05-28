@@ -64,6 +64,11 @@ function point(x,y){
         y=Math.round(mousePos.y/(canvas.width/lines))*(canvas.width/lines)
         context.strokeStyle = "black"
         for (i=0;i < linearr.length-1;i+=2){
+          if(document.getElementById("grad").checked){
+            context.fillStyle = "black";
+            context.font = "bold 16px Arial";
+            context.fillText(-1*(linearr[i][1]-linearr[i+1][1])/(linearr[i][0]-linearr[i+1][0]), (linearr[i][0] + linearr[i+1][0])/2, (linearr[i][1] + linearr[i+1][1])/2)
+          }
           line(linearr[i],linearr[i+1]);
         }
         if(drawLine){
