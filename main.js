@@ -77,6 +77,7 @@ function reduce(numerator,denominator){
             context.font = "bold 16px Arial";
             frac = reduce(linearr[i][1]-linearr[i+1][1],-1*(linearr[i][0]-linearr[i+1][0]))
             if (frac[1] == 1){fract = frac[0]}
+            else if (frac[1] == 0){fract = "Undifined"}
             else {fract = frac[0]+"/"+frac[1]}
             context.fillText(fract, (linearr[i][0] + linearr[i+1][0])/2, (linearr[i][1] + linearr[i+1][1])/2)
           }
