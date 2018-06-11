@@ -23,6 +23,14 @@ function point(x,y){
   context.arc(x, y, 5, 0, 2 * Math.PI, false);
   context.stroke();
 }
+function reduce(numerator,denominator){
+  var gcd = function gcd(a,b){
+    return b ? gcd(b, a%b) : a;
+  };
+  gcd = gcd(numerator,denominator);
+  return [numerator/gcd, denominator/gcd];
+}
+
 
 (function() {
     var mousePos;
@@ -67,7 +75,10 @@ function point(x,y){
           if(document.getElementById("grad").checked){
             context.fillStyle = "black";
             context.font = "bold 16px Arial";
-            context.fillText(-1*(linearr[i][1]-linearr[i+1][1])/(linearr[i][0]-linearr[i+1][0]), (linearr[i][0] + linearr[i+1][0])/2, (linearr[i][1] + linearr[i+1][1])/2)
+            frac = reduce(linearr[i][1]-linearr[i+1][1],-1*(linearr[i][0]-linearr[i+1][0]))
+            if (frac[1] == 1){fract = frac[0]}
+            else {fract = frac[0]+"/"+frac[1]}
+            context.fillText(fract, (linearr[i][0] + linearr[i+1][0])/2, (linearr[i][1] + linearr[i+1][1])/2)
           }
           line(linearr[i],linearr[i+1]);
         }
