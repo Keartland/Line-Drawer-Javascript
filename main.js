@@ -23,11 +23,17 @@ function point(x,y){
   context.arc(x, y, 5, 0, 2 * Math.PI, false);
   context.stroke();
 }
+function precise(x) {
+  return Number.parseFloat(x).toPrecision(5);
+}
 function reduce(numerator,denominator){
+  numerator = Math.round(numerator)
+  denominator = Math.round(denominator)
   var gcd = function gcd(a,b){
     return b ? gcd(b, a%b) : a;
   };
   gcd = gcd(numerator,denominator);
+
   return [numerator/gcd, denominator/gcd];
 }
 
@@ -68,16 +74,17 @@ function reduce(numerator,denominator){
       }
       if (mousePos) {
         draw()
-        x=Math.round(mousePos.x/(canvas.width/lines))*(canvas.width/lines)
-        y=Math.round(mousePos.y/(canvas.width/lines))*(canvas.width/lines)
+        sf = canvas.width/lines
+        x=Math.round(mousePos.x/sf)*sf
+        y=Math.round(mousePos.y/sf)*sf
         context.strokeStyle = "black"
         for (i=0;i < linearr.length-1;i+=2){
           if(document.getElementById("grad").checked){
             context.fillStyle = "black";
             context.font = "bold 16px Arial";
-            frac = reduce(linearr[i][1]-linearr[i+1][1],-1*(linearr[i][0]-linearr[i+1][0]))
+            frac = reduce(Math.round(linearr[i][1]/sf)-Math.round(linearr[i+1][1]/sf),-1*Math.round(linearr[i][0]/sf)-Math.round(linearr[i+1][0]/sf))
             if (frac[1] == 1){fract = frac[0]}
-            else if (frac[1] == 0){fract = "Undifined"}
+            else if (frac[1] == 0){fract = "Undefined"}
             else {fract = frac[0]+"/"+frac[1]}
             context.fillText(fract, (linearr[i][0] + linearr[i+1][0])/2, (linearr[i][1] + linearr[i+1][1])/2)
           }
