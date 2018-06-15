@@ -98,3 +98,4 @@ function reduce(numerator,denominator){
       }
     }
 })();
+draw()
