@@ -32,8 +32,8 @@ function reduce(numerator,denominator){
   var gcd = function gcd(a,b){
     return b ? gcd(b, a%b) : a;
   };
-  gcd = gcd(numerator,denominator);
 
+  gcd = gcd(numerator,denominator);
   return [numerator/gcd, denominator/gcd];
 }
 
@@ -82,8 +82,9 @@ function reduce(numerator,denominator){
           if(document.getElementById("grad").checked){
             context.fillStyle = "black";
             context.font = "bold 16px Arial";
-            frac = reduce(Math.round(linearr[i][1]/sf)-Math.round(linearr[i+1][1]/sf),-1*Math.round(linearr[i][0]/sf)-Math.round(linearr[i+1][0]/sf))
+            frac = reduce(linearr[i][1]/sf-linearr[i+1][1]/sf,-1*(linearr[i][0]/sf-linearr[i+1][0]/sf))
             if (frac[1] == 1){fract = frac[0]}
+            else if (frac[1] < 0){fract = -1*frac[0]+"/"+-1*frac[1]}
             else if (frac[1] == 0){fract = "Undefined"}
             else {fract = frac[0]+"/"+frac[1]}
             context.fillText(fract, (linearr[i][0] + linearr[i+1][0])/2, (linearr[i][1] + linearr[i+1][1])/2)
